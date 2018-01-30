@@ -194,6 +194,7 @@ let unifi = UnifiAPI({
     * [.list_dashboard(site)](#UnifiAPI+list_dashboard) ⇒ <code>Promise</code>
     * [.list_users(site)](#UnifiAPI+list_users) ⇒ <code>Promise</code>
     * [.list_aps(mac, site)](#UnifiAPI+list_aps) ⇒ <code>Promise</code>
+    * [.list_devices(macs, site)](#UnifiAPI+list_devices) ⇒ <code>Promise</code>
     * [.list_rogueaps(within, site)](#UnifiAPI+list_rogueaps) ⇒ <code>Promise</code>
     * [.list_sites()](#UnifiAPI+list_sites) ⇒ <code>Promise</code>
     * [.stat_sites()](#UnifiAPI+stat_sites) ⇒ <code>Promise</code>
@@ -256,7 +257,7 @@ let unifi = UnifiAPI({
 ### unifiAPI.debugging(enable) ⇒ <code>undefined</code>
 Enable or disable the debug of the module
 
-**Kind**: instance method of <code>[UnifiAPI](#UnifiAPI)</code>  
+**Kind**: instance method of [<code>UnifiAPI</code>](#UnifiAPI)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -267,7 +268,7 @@ Enable or disable the debug of the module
 ### unifiAPI.netsite(url, jsonParams, headers, method, site) ⇒ <code>Promise</code>
 Generic network operation, executing Ubiquiti command under /api/s/{site}/... rest api
 
-**Kind**: instance method of <code>[UnifiAPI](#UnifiAPI)</code>  
+**Kind**: instance method of [<code>UnifiAPI</code>](#UnifiAPI)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -288,7 +289,7 @@ unifi.netsite('/cmd/stamgr', { cmd: 'authorize-guest', mac: '00:01:02:03:04:05',
 ### unifiAPI.login(username, password) ⇒ <code>Promise</code>
 Explicit login to the controller. It is not necessary, as every other method calls implicid login (with the default username and password) before execution
 
-**Kind**: instance method of <code>[UnifiAPI](#UnifiAPI)</code>  
+**Kind**: instance method of [<code>UnifiAPI</code>](#UnifiAPI)  
 **Returns**: <code>Promise</code> - success or failure  
 
 | Param | Type | Description |
@@ -307,7 +308,7 @@ unifi.login(username, password)
 ### unifiAPI.logout()
 Logout of the controller
 
-**Kind**: instance method of <code>[UnifiAPI](#UnifiAPI)</code>  
+**Kind**: instance method of [<code>UnifiAPI</code>](#UnifiAPI)  
 **Example**  
 ```js
 unifi.logout()
@@ -319,7 +320,7 @@ unifi.logout()
 ### unifiAPI.authorize_guest(mac, minutes, up, down, mbytes, apmac, site) ⇒ <code>Promise</code>
 Authorize guest by a MAC address
 
-**Kind**: instance method of <code>[UnifiAPI](#UnifiAPI)</code>  
+**Kind**: instance method of [<code>UnifiAPI</code>](#UnifiAPI)  
 **Returns**: <code>Promise</code> - Promise  
 
 | Param | Type | Description |
@@ -343,7 +344,7 @@ unifi.authorize_guest('01:02:aa:bb:cc')
 ### unifiAPI.unauthorize_guest(mac, site) ⇒ <code>Promise</code>
 De-authorize guest by a MAC address
 
-**Kind**: instance method of <code>[UnifiAPI](#UnifiAPI)</code>  
+**Kind**: instance method of [<code>UnifiAPI</code>](#UnifiAPI)  
 **Returns**: <code>Promise</code> - Promise  
 
 | Param | Type | Description |
@@ -362,7 +363,7 @@ unifi.unauthorize_guest('00:01:02:03:aa:bb')
 ### unifiAPI.kick_sta(mac, site) ⇒ <code>Promise</code>
 Kick a client (station) of the network. This will disconnect a wireless user if it is connected
 
-**Kind**: instance method of <code>[UnifiAPI](#UnifiAPI)</code>  
+**Kind**: instance method of [<code>UnifiAPI</code>](#UnifiAPI)  
 **Returns**: <code>Promise</code> - Promise  
 
 | Param | Type | Description |
@@ -381,7 +382,7 @@ unifi.kick_sta('00:00:11:22:33:44')
 ### unifiAPI.terminate_guest(id, site) ⇒ <code>Promise</code>
 Terminate access of a Guest (logged in via Guest Authorization). It kicks it out of the wireless and authroization
 
-**Kind**: instance method of <code>[UnifiAPI](#UnifiAPI)</code>  
+**Kind**: instance method of [<code>UnifiAPI</code>](#UnifiAPI)  
 **Returns**: <code>Promise</code> - Promise  
 
 | Param | Type | Description |
@@ -400,7 +401,7 @@ unifi.terminate_guest('aa01af0133d334d77d')
 ### unifiAPI.block_sta(mac, site) ⇒ <code>Promise</code>
 Block station of the network
 
-**Kind**: instance method of <code>[UnifiAPI](#UnifiAPI)</code>  
+**Kind**: instance method of [<code>UnifiAPI</code>](#UnifiAPI)  
 **Returns**: <code>Promise</code> - Promise  
 
 | Param | Type | Description |
@@ -419,7 +420,7 @@ unifi.block_sta('00:01:02:03:04:05')
 ### unifiAPI.unblock_sta(mac, site) ⇒ <code>Promise</code>
 Unblock station of the network
 
-**Kind**: instance method of <code>[UnifiAPI](#UnifiAPI)</code>  
+**Kind**: instance method of [<code>UnifiAPI</code>](#UnifiAPI)  
 **Returns**: <code>Promise</code> - Promise  
 
 | Param | Type | Description |
@@ -438,7 +439,7 @@ unifi.block_sta('00:01:02:03:04:05')
 ### unifiAPI.set_sta_note(user, note, site) ⇒ <code>Promise</code>
 Set or remove Note to a station
 
-**Kind**: instance method of <code>[UnifiAPI](#UnifiAPI)</code>  
+**Kind**: instance method of [<code>UnifiAPI</code>](#UnifiAPI)  
 **Returns**: <code>Promise</code> - Promise  
 
 | Param | Type | Description |
@@ -464,7 +465,7 @@ unifi.set_sta_note('aabbaa0102aa03aa3322','') // remove note
 ### unifiAPI.set_sta_name(user, name, site) ⇒ <code>Promise</code>
 Set or remove Name to a station
 
-**Kind**: instance method of <code>[UnifiAPI](#UnifiAPI)</code>  
+**Kind**: instance method of [<code>UnifiAPI</code>](#UnifiAPI)  
 **Returns**: <code>Promise</code> - Promise  
 
 | Param | Type | Description |
@@ -490,7 +491,7 @@ unifi.set_sta_name('aabbaa0102aa03aa3322','') // remove name
 ### unifiAPI.stat_sessions(start, end, type, site) ⇒ <code>Promise</code>
 List client sessions
 
-**Kind**: instance method of <code>[UnifiAPI](#UnifiAPI)</code>  
+**Kind**: instance method of [<code>UnifiAPI</code>](#UnifiAPI)  
 **Returns**: <code>Promise</code> - Promise  
 
 | Param | Type | Description |
@@ -511,7 +512,7 @@ unifi.stat_sessions()
 ### unifiAPI.stat_daily_site(start, end, attrs, site) ⇒ <code>Promise</code>
 List daily site statistics
 
-**Kind**: instance method of <code>[UnifiAPI](#UnifiAPI)</code>  
+**Kind**: instance method of [<code>UnifiAPI</code>](#UnifiAPI)  
 **Returns**: <code>Promise</code> - Promise  
 
 | Param | Type | Description |
@@ -532,7 +533,7 @@ unifi.stat_daily_site()
 ### unifiAPI.stat_hourly_site(start, end, attrs, site) ⇒ <code>Promise</code>
 List hourly site statistics
 
-**Kind**: instance method of <code>[UnifiAPI](#UnifiAPI)</code>  
+**Kind**: instance method of [<code>UnifiAPI</code>](#UnifiAPI)  
 **Returns**: <code>Promise</code> - Promise  
 
 | Param | Type | Description |
@@ -553,7 +554,7 @@ unifi.stat_hourly_site()
 ### unifiAPI.stat_hourly_ap(start, end, attrs, site) ⇒ <code>Promise</code>
 List hourly site statistics for ap
 
-**Kind**: instance method of <code>[UnifiAPI](#UnifiAPI)</code>  
+**Kind**: instance method of [<code>UnifiAPI</code>](#UnifiAPI)  
 **Returns**: <code>Promise</code> - Promise  
 
 | Param | Type | Description |
@@ -574,7 +575,7 @@ unifi.stat_hourly_ap()
 ### unifiAPI.stat_sta_sessions_latest(mac, limit, sort, site) ⇒ <code>Promise</code>
 Last station sessions
 
-**Kind**: instance method of <code>[UnifiAPI](#UnifiAPI)</code>  
+**Kind**: instance method of [<code>UnifiAPI</code>](#UnifiAPI)  
 **Returns**: <code>Promise</code> - Promise  
 
 | Param | Type | Description |
@@ -595,7 +596,7 @@ unifi.stat_sta_sessions_latest('00:01:02:03:04:05', 10)
 ### unifiAPI.stat_auths(start, end, site) ⇒ <code>Promise</code>
 List authorizations
 
-**Kind**: instance method of <code>[UnifiAPI](#UnifiAPI)</code>  
+**Kind**: instance method of [<code>UnifiAPI</code>](#UnifiAPI)  
 **Returns**: <code>Promise</code> - Promise  
 
 | Param | Type | Description |
@@ -615,7 +616,7 @@ unifi.stat_auths()
 ### unifiAPI.stat_allusers(historyhours, site) ⇒ <code>Promise</code>
 List all users
 
-**Kind**: instance method of <code>[UnifiAPI](#UnifiAPI)</code>  
+**Kind**: instance method of [<code>UnifiAPI</code>](#UnifiAPI)  
 **Returns**: <code>Promise</code> - Promise  
 
 | Param | Type | Description |
@@ -634,7 +635,7 @@ unifi.stat_allusers()
 ### unifiAPI.list_guests(historyhours, site) ⇒ <code>Promise</code>
 List of guests (authorized via the guest portal)
 
-**Kind**: instance method of <code>[UnifiAPI](#UnifiAPI)</code>  
+**Kind**: instance method of [<code>UnifiAPI</code>](#UnifiAPI)  
 **Returns**: <code>Promise</code> - Promise  
 
 | Param | Type | Description |
@@ -653,7 +654,7 @@ unifi.list_guests()
 ### unifiAPI.list_guests2(historyhours, site) ⇒ <code>Promise</code>
 List of guests (authorized via the guest portal) but with modern internal api
 
-**Kind**: instance method of <code>[UnifiAPI](#UnifiAPI)</code>  
+**Kind**: instance method of [<code>UnifiAPI</code>](#UnifiAPI)  
 **Returns**: <code>Promise</code> - Promise  
 
 | Param | Type | Description |
@@ -672,7 +673,7 @@ unifi.list_guests2()
 ### unifiAPI.list_clients(mac, site) ⇒ <code>Promise</code>
 List of (all) clients per station
 
-**Kind**: instance method of <code>[UnifiAPI](#UnifiAPI)</code>  
+**Kind**: instance method of [<code>UnifiAPI</code>](#UnifiAPI)  
 **Returns**: <code>Promise</code> - Promise  
 
 | Param | Type | Description |
@@ -691,7 +692,7 @@ unifi.list_clients()
 ### unifiAPI.list_some_clients(macs, ap, site) ⇒ <code>Promise</code>
 List of group of clients per station
 
-**Kind**: instance method of <code>[UnifiAPI](#UnifiAPI)</code>  
+**Kind**: instance method of [<code>UnifiAPI</code>](#UnifiAPI)  
 **Returns**: <code>Promise</code> - Promise  
 
 | Param | Type | Description |
@@ -711,7 +712,7 @@ unifi.list_some_clients()
 ### unifiAPI.stat_client(mac, site) ⇒ <code>Promise</code>
 Statistics of (all) clients per station
 
-**Kind**: instance method of <code>[UnifiAPI](#UnifiAPI)</code>  
+**Kind**: instance method of [<code>UnifiAPI</code>](#UnifiAPI)  
 **Returns**: <code>Promise</code> - Promise  
 
 | Param | Type | Description |
@@ -730,7 +731,7 @@ unifi.stat_client()
 ### unifiAPI.list_usergroup(site) ⇒ <code>Promise</code>
 List of the usergroups
 
-**Kind**: instance method of <code>[UnifiAPI](#UnifiAPI)</code>  
+**Kind**: instance method of [<code>UnifiAPI</code>](#UnifiAPI)  
 **Returns**: <code>Promise</code> - Promise  
 
 | Param | Type | Description |
@@ -748,7 +749,7 @@ unifi.list_usergroup()
 ### unifiAPI.set_usergroup(userid, groupid, site) ⇒ <code>Promise</code>
 Add user to a group
 
-**Kind**: instance method of <code>[UnifiAPI](#UnifiAPI)</code>  
+**Kind**: instance method of [<code>UnifiAPI</code>](#UnifiAPI)  
 **Returns**: <code>Promise</code> - Promise  
 
 | Param | Type | Description |
@@ -768,7 +769,7 @@ unifi.set_usergroup('11aa22bb33cc44dd55ee66ff', '112233445566778899aabb')
 ### unifiAPI.list_health(site) ⇒ <code>Promise</code>
 List health
 
-**Kind**: instance method of <code>[UnifiAPI](#UnifiAPI)</code>  
+**Kind**: instance method of [<code>UnifiAPI</code>](#UnifiAPI)  
 **Returns**: <code>Promise</code> - Promise  
 
 | Param | Type | Description |
@@ -786,7 +787,7 @@ unifi.list_health()
 ### unifiAPI.list_dashboard(site) ⇒ <code>Promise</code>
 List dashboard
 
-**Kind**: instance method of <code>[UnifiAPI](#UnifiAPI)</code>  
+**Kind**: instance method of [<code>UnifiAPI</code>](#UnifiAPI)  
 **Returns**: <code>Promise</code> - Promise  
 
 | Param | Type | Description |
@@ -804,7 +805,7 @@ unifi.list_dashboard()
 ### unifiAPI.list_users(site) ⇒ <code>Promise</code>
 List users
 
-**Kind**: instance method of <code>[UnifiAPI](#UnifiAPI)</code>  
+**Kind**: instance method of [<code>UnifiAPI</code>](#UnifiAPI)  
 **Returns**: <code>Promise</code> - Promise  
 
 | Param | Type | Description |
@@ -820,9 +821,9 @@ unifi.list_users()
 <a name="UnifiAPI+list_aps"></a>
 
 ### unifiAPI.list_aps(mac, site) ⇒ <code>Promise</code>
-List APs
+Legacy List APs (deprecated, use 'List Devices')
 
-**Kind**: instance method of <code>[UnifiAPI](#UnifiAPI)</code>  
+**Kind**: instance method of [<code>UnifiAPI</code>](#UnifiAPI)  
 **Returns**: <code>Promise</code> - Promise  
 
 | Param | Type | Description |
@@ -836,12 +837,31 @@ unifi.list_aps()
     .then(done => console.log('Success',done))
     .catch(err => console.log('Error',err))
 ```
+<a name="UnifiAPI+list_devices"></a>
+
+### unifiAPI.list_devices(macs, site) ⇒ <code>Promise</code>
+List Devices
+
+**Kind**: instance method of [<code>UnifiAPI</code>](#UnifiAPI)  
+**Returns**: <code>Promise</code> - Promise  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| macs | <code>string</code> | List of device' macs, Optional |
+| site | <code>string</code> | Ubiquiti site, if different from default - optional |
+
+**Example**  
+```js
+unifi.list_devices()
+    .then(done => console.log('Success',done))
+    .catch(err => console.log('Error',err))
+```
 <a name="UnifiAPI+list_rogueaps"></a>
 
 ### unifiAPI.list_rogueaps(within, site) ⇒ <code>Promise</code>
 List Rogue APs
 
-**Kind**: instance method of <code>[UnifiAPI](#UnifiAPI)</code>  
+**Kind**: instance method of [<code>UnifiAPI</code>](#UnifiAPI)  
 **Returns**: <code>Promise</code> - Promise  
 
 | Param | Type | Description |
@@ -860,7 +880,7 @@ unifi.list_rogueaps()
 ### unifiAPI.list_sites() ⇒ <code>Promise</code>
 List sites
 
-**Kind**: instance method of <code>[UnifiAPI](#UnifiAPI)</code>  
+**Kind**: instance method of [<code>UnifiAPI</code>](#UnifiAPI)  
 **Returns**: <code>Promise</code> - Promise  
 **Example**  
 ```js
@@ -873,7 +893,7 @@ unifi.list_sites()
 ### unifiAPI.stat_sites() ⇒ <code>Promise</code>
 Sites stats
 
-**Kind**: instance method of <code>[UnifiAPI](#UnifiAPI)</code>  
+**Kind**: instance method of [<code>UnifiAPI</code>](#UnifiAPI)  
 **Returns**: <code>Promise</code> - Promise  
 **Example**  
 ```js
@@ -886,7 +906,7 @@ unifi.stat_sites()
 ### unifiAPI.add_site(name, description, site) ⇒ <code>Promise</code>
 Add new site
 
-**Kind**: instance method of <code>[UnifiAPI](#UnifiAPI)</code>  
+**Kind**: instance method of [<code>UnifiAPI</code>](#UnifiAPI)  
 **Returns**: <code>Promise</code> - Promise  
 
 | Param | Type | Description |
@@ -906,7 +926,7 @@ unifi.add_site('mysite','Experimental site')
 ### unifiAPI.remove_site(name, site) ⇒ <code>Promise</code>
 Remove site
 
-**Kind**: instance method of <code>[UnifiAPI](#UnifiAPI)</code>  
+**Kind**: instance method of [<code>UnifiAPI</code>](#UnifiAPI)  
 **Returns**: <code>Promise</code> - Promise  
 
 | Param | Type | Description |
@@ -925,7 +945,7 @@ unifi.remove_site('mysite')
 ### unifiAPI.list_wlan_groups(site) ⇒ <code>Promise</code>
 List WLANGroups
 
-**Kind**: instance method of <code>[UnifiAPI](#UnifiAPI)</code>  
+**Kind**: instance method of [<code>UnifiAPI</code>](#UnifiAPI)  
 **Returns**: <code>Promise</code> - Promise  
 
 | Param | Type | Description |
@@ -943,7 +963,7 @@ unifi.list_wlan_groups()
 ### unifiAPI.stat_sysinfo(site) ⇒ <code>Promise</code>
 Stat Sysinfo
 
-**Kind**: instance method of <code>[UnifiAPI](#UnifiAPI)</code>  
+**Kind**: instance method of [<code>UnifiAPI</code>](#UnifiAPI)  
 **Returns**: <code>Promise</code> - Promise  
 
 | Param | Type | Description |
@@ -961,7 +981,7 @@ unifi.stat_sysinfo()
 ### unifiAPI.list_self(site) ⇒ <code>Promise</code>
 Get information aboult self (username, etc)
 
-**Kind**: instance method of <code>[UnifiAPI](#UnifiAPI)</code>  
+**Kind**: instance method of [<code>UnifiAPI</code>](#UnifiAPI)  
 **Returns**: <code>Promise</code> - Promise  
 
 | Param | Type | Description |
@@ -979,7 +999,7 @@ unifi.list_self()
 ### unifiAPI.list_networkconf(site) ⇒ <code>Promise</code>
 Get information aboult the network configuration
 
-**Kind**: instance method of <code>[UnifiAPI](#UnifiAPI)</code>  
+**Kind**: instance method of [<code>UnifiAPI</code>](#UnifiAPI)  
 **Returns**: <code>Promise</code> - Promise  
 
 | Param | Type | Description |
@@ -997,7 +1017,7 @@ unifi.list_networkconf()
 ### unifiAPI.stat_voucher(createtime, site) ⇒ <code>Promise</code>
 Get accounting / status of the vouchers
 
-**Kind**: instance method of <code>[UnifiAPI](#UnifiAPI)</code>  
+**Kind**: instance method of [<code>UnifiAPI</code>](#UnifiAPI)  
 **Returns**: <code>Promise</code> - Promise  
 
 | Param | Type | Description |
@@ -1016,7 +1036,7 @@ unifi.stat_voucher()
 ### unifiAPI.stat_payment(within, site) ⇒ <code>Promise</code>
 Get accounting / status of the payments
 
-**Kind**: instance method of <code>[UnifiAPI](#UnifiAPI)</code>  
+**Kind**: instance method of [<code>UnifiAPI</code>](#UnifiAPI)  
 **Returns**: <code>Promise</code> - Promise  
 
 | Param | Type | Description |
@@ -1035,7 +1055,7 @@ unifi.stat_payment()
 ### unifiAPI.create_hotspot(name, password, note, site) ⇒ <code>Promise</code>
 Create HotSpot (version 1)
 
-**Kind**: instance method of <code>[UnifiAPI](#UnifiAPI)</code>  
+**Kind**: instance method of [<code>UnifiAPI</code>](#UnifiAPI)  
 **Returns**: <code>Promise</code> - Promise  
 **Todo**
 
@@ -1061,7 +1081,7 @@ unifi.create_hotspot('myhotspot', 'password', 'note')
 ### unifiAPI.list_hotspot(site) ⇒ <code>Promise</code>
 List all of the hotspots (v1)
 
-**Kind**: instance method of <code>[UnifiAPI](#UnifiAPI)</code>  
+**Kind**: instance method of [<code>UnifiAPI</code>](#UnifiAPI)  
 **Returns**: <code>Promise</code> - Promise  
 
 | Param | Type | Description |
@@ -1079,7 +1099,7 @@ unifi.list_hotspot()
 ### unifiAPI.create_voucher(count, minutes, quota, note, up, down, mbytes, site) ⇒ <code>Promise</code>
 Create vouchers. Generate a set of vouchers
 
-**Kind**: instance method of <code>[UnifiAPI](#UnifiAPI)</code>  
+**Kind**: instance method of [<code>UnifiAPI</code>](#UnifiAPI)  
 **Returns**: <code>Promise</code> - Promise  
 
 | Param | Type | Description |
@@ -1104,7 +1124,7 @@ unifi.create_voucher(10, 2880, 1, 'Test vouchers', 1000, 2000, 250)
 ### unifiAPI.revoke_voucher(voucher_id, site) ⇒ <code>Promise</code>
 Revoke Voucher. Voucher revoking is the same as deleting the voucher. In most of the cases the authorized user is kicked out of the network too
 
-**Kind**: instance method of <code>[UnifiAPI](#UnifiAPI)</code>  
+**Kind**: instance method of [<code>UnifiAPI</code>](#UnifiAPI)  
 **Returns**: <code>Promise</code> - Promise  
 
 | Param | Type | Description |
@@ -1123,7 +1143,7 @@ unifi.revoke_voucher('9912982aaff182728a0f03')
 ### unifiAPI.list_portforwarding(site) ⇒ <code>Promise</code>
 List port forwarding configuration
 
-**Kind**: instance method of <code>[UnifiAPI](#UnifiAPI)</code>  
+**Kind**: instance method of [<code>UnifiAPI</code>](#UnifiAPI)  
 **Returns**: <code>Promise</code> - Promise  
 
 | Param | Type | Description |
@@ -1141,7 +1161,7 @@ unifi.list_portforwarding()
 ### unifiAPI.list_dynamicdns(site) ⇒ <code>Promise</code>
 List dynamic dns configuration
 
-**Kind**: instance method of <code>[UnifiAPI](#UnifiAPI)</code>  
+**Kind**: instance method of [<code>UnifiAPI</code>](#UnifiAPI)  
 **Returns**: <code>Promise</code> - Promise  
 
 | Param | Type | Description |
@@ -1159,7 +1179,7 @@ unifi.list_dynamicdns()
 ### unifiAPI.list_portconf(site) ⇒ <code>Promise</code>
 List network port configuration
 
-**Kind**: instance method of <code>[UnifiAPI](#UnifiAPI)</code>  
+**Kind**: instance method of [<code>UnifiAPI</code>](#UnifiAPI)  
 **Returns**: <code>Promise</code> - Promise  
 **Todo**
 
@@ -1181,7 +1201,7 @@ unifi.list_portconf()
 ### unifiAPI.list_extension(site) ⇒ <code>Promise</code>
 List extensions
 
-**Kind**: instance method of <code>[UnifiAPI](#UnifiAPI)</code>  
+**Kind**: instance method of [<code>UnifiAPI</code>](#UnifiAPI)  
 **Returns**: <code>Promise</code> - Promise  
 **Todo**
 
@@ -1203,7 +1223,7 @@ unifi.list_extension()
 ### unifiAPI.list_settings(site) ⇒ <code>Promise</code>
 Get array with all the settings refered by settings key
 
-**Kind**: instance method of <code>[UnifiAPI](#UnifiAPI)</code>  
+**Kind**: instance method of [<code>UnifiAPI</code>](#UnifiAPI)  
 **Returns**: <code>Promise</code> - Promise  
 
 | Param | Type | Description |
@@ -1221,7 +1241,7 @@ unifi.list_settings()
 ### unifiAPI.restart_ap(mac, site) ⇒ <code>Promise</code>
 Restart Wireless Access Point
 
-**Kind**: instance method of <code>[UnifiAPI](#UnifiAPI)</code>  
+**Kind**: instance method of [<code>UnifiAPI</code>](#UnifiAPI)  
 **Returns**: <code>Promise</code> - Promise  
 
 | Param | Type | Description |
@@ -1240,7 +1260,7 @@ unifi.restart_ap('00:01:02:03:aa:04')
 ### unifiAPI.disable_ap(ap_id, disable, site) ⇒ <code>Promise</code>
 Disable Wireless Access Point
 
-**Kind**: instance method of <code>[UnifiAPI](#UnifiAPI)</code>  
+**Kind**: instance method of [<code>UnifiAPI</code>](#UnifiAPI)  
 **Returns**: <code>Promise</code> - Promise  
 
 | Param | Type | Description |
@@ -1260,7 +1280,7 @@ unifi.disable_ap('001fa98a00a22328123')
 ### unifiAPI.enable_ap(ap_id, disable, site) ⇒ <code>Promise</code>
 Enable Wireless Access Point
 
-**Kind**: instance method of <code>[UnifiAPI](#UnifiAPI)</code>  
+**Kind**: instance method of [<code>UnifiAPI</code>](#UnifiAPI)  
 **Returns**: <code>Promise</code> - Promise  
 
 | Param | Type | Description |
@@ -1280,7 +1300,7 @@ unifi.enable_ap('001fa98a00a22328123')
 ### unifiAPI.set_locate_ap(mac, site) ⇒ <code>Promise</code>
 Locate Wireless Access Point. The Access Point will start blinking
 
-**Kind**: instance method of <code>[UnifiAPI](#UnifiAPI)</code>  
+**Kind**: instance method of [<code>UnifiAPI</code>](#UnifiAPI)  
 **Returns**: <code>Promise</code> - Promise  
 
 | Param | Type | Description |
@@ -1299,7 +1319,7 @@ unifi.set_locate_ap('00:01:aa:03:04:05')
 ### unifiAPI.unset_locate_ap(mac, site) ⇒ <code>Promise</code>
 Turn off Locate Wireless Access Point. The Access Point will stop blinking
 
-**Kind**: instance method of <code>[UnifiAPI](#UnifiAPI)</code>  
+**Kind**: instance method of [<code>UnifiAPI</code>](#UnifiAPI)  
 **Returns**: <code>Promise</code> - Promise  
 
 | Param | Type | Description |
@@ -1318,7 +1338,7 @@ unifi.unset_locate_ap('00:01:aa:03:04:05')
 ### unifiAPI.site_ledson(site) ⇒ <code>Promise</code>
 All devices in the site group will start blinking
 
-**Kind**: instance method of <code>[UnifiAPI](#UnifiAPI)</code>  
+**Kind**: instance method of [<code>UnifiAPI</code>](#UnifiAPI)  
 **Returns**: <code>Promise</code> - Promise  
 
 | Param | Type | Description |
@@ -1336,7 +1356,7 @@ unifi.site_ledson()
 ### unifiAPI.site_ledsoff(site) ⇒ <code>Promise</code>
 All devices in the site group will stop blinking
 
-**Kind**: instance method of <code>[UnifiAPI](#UnifiAPI)</code>  
+**Kind**: instance method of [<code>UnifiAPI</code>](#UnifiAPI)  
 **Returns**: <code>Promise</code> - Promise  
 
 | Param | Type | Description |
@@ -1354,7 +1374,7 @@ unifi.site_ledsoff()
 ### unifiAPI.set_ap_radiosettings(ap_id, radio, channel, ht, tx_power_mode, tx_power, site) ⇒ <code>Promise</code>
 Change AP wireless settings
 
-**Kind**: instance method of <code>[UnifiAPI](#UnifiAPI)</code>  
+**Kind**: instance method of [<code>UnifiAPI</code>](#UnifiAPI)  
 **Returns**: <code>Promise</code> - Promise  
 
 | Param | Type | Description |
@@ -1379,7 +1399,7 @@ unifi.set_ap_radiosettings('aa0101023faabbaacc0c0', 'ng', 3, 20)
 Retrieve settings by a specific settings key. Only elements with this settings key will be returned in the array. Usually 1 or 0
 Typical keys are mgmt, snmp, porta, locale, rsyslogd, auto_speedtest, country, connectivity
 
-**Kind**: instance method of <code>[UnifiAPI](#UnifiAPI)</code>  
+**Kind**: instance method of [<code>UnifiAPI</code>](#UnifiAPI)  
 **Returns**: <code>Promise</code> - Promise  
 
 | Param | Type | Description |
@@ -1398,7 +1418,7 @@ unifi.get_settings_by_key('mgmt')
 ### unifiAPI.set_settings(key, obj, site) ⇒ <code>Promise</code>
 Set settings by key modifies properties of the settings, defined by key
 
-**Kind**: instance method of <code>[UnifiAPI](#UnifiAPI)</code>  
+**Kind**: instance method of [<code>UnifiAPI</code>](#UnifiAPI)  
 **Returns**: <code>Promise</code> - Promise  
 
 | Param | Type | Description |
@@ -1418,7 +1438,7 @@ unifi.set_settings_by_key('mgmt', { auto_upgrade: true })
 ### unifiAPI.set_guest_access(obj, guest_id, site_id, site) ⇒ <code>Promise</code>
 Set Guest Settings and Guest Access Portal are created with this method
 
-**Kind**: instance method of <code>[UnifiAPI](#UnifiAPI)</code>  
+**Kind**: instance method of [<code>UnifiAPI</code>](#UnifiAPI)  
 **Returns**: <code>Promise</code> - Promise  
 
 | Param | Type | Description |
@@ -1449,7 +1469,7 @@ unifi.set_guest_access({ auth: 'hotspot', payment_enabled: true }, 'aabbaa010102
 ### unifiAPI.set_guestlogin_settings(portal_enabled, portal_customized, redirect_enabled, redirect_url, x_password, site) ⇒ <code>Promise</code>
 Set Guest Login Settings (simplified version)
 
-**Kind**: instance method of <code>[UnifiAPI](#UnifiAPI)</code>  
+**Kind**: instance method of [<code>UnifiAPI</code>](#UnifiAPI)  
 **Returns**: <code>Promise</code> - Promise  
 
 | Param | Type | Description |
@@ -1472,7 +1492,7 @@ unifi.set_guestlogin_settings(true, true, true, 'http://news.com')
 ### unifiAPI.rename_ap(ap_id, ap_name, site) ⇒ <code>Promise</code>
 Rename Access Point
 
-**Kind**: instance method of <code>[UnifiAPI](#UnifiAPI)</code>  
+**Kind**: instance method of [<code>UnifiAPI</code>](#UnifiAPI)  
 **Returns**: <code>Promise</code> - Promise  
 
 | Param | Type | Description |
@@ -1492,7 +1512,7 @@ unifi.rename_ap('ccffee0102030303','My Access Point')
 ### unifiAPI.set_wlansettings(wlan_id, x_password, name, site) ⇒ <code>Promise</code>
 Set WLAN Settings
 
-**Kind**: instance method of <code>[UnifiAPI](#UnifiAPI)</code>  
+**Kind**: instance method of [<code>UnifiAPI</code>](#UnifiAPI)  
 **Returns**: <code>Promise</code> - Promise  
 
 | Param | Type | Description |
@@ -1513,7 +1533,7 @@ unifi.set_wlansettings('ccffee0102030303', 'guest', 'GuestWLAN')
 ### unifiAPI.list_events(site) ⇒ <code>Promise</code>
 List the Events
 
-**Kind**: instance method of <code>[UnifiAPI](#UnifiAPI)</code>  
+**Kind**: instance method of [<code>UnifiAPI</code>](#UnifiAPI)  
 **Returns**: <code>Promise</code> - Promise  
 
 | Param | Type | Description |
@@ -1531,7 +1551,7 @@ unifi.list_events()
 ### unifiAPI.list_wlanconf(site) ⇒ <code>Promise</code>
 Get WLAN Config. Respond with Array of Wlan configurations
 
-**Kind**: instance method of <code>[UnifiAPI](#UnifiAPI)</code>  
+**Kind**: instance method of [<code>UnifiAPI</code>](#UnifiAPI)  
 **Returns**: <code>Promise</code> - Promise  
 
 | Param | Type | Description |
@@ -1549,7 +1569,7 @@ unifi.list_wlanconf()
 ### unifiAPI.get_wlanconf(site) ⇒ <code>Promise</code>
 Get WLAN Config. Second REST option. Respond with Array of Wlan configurations
 
-**Kind**: instance method of <code>[UnifiAPI](#UnifiAPI)</code>  
+**Kind**: instance method of [<code>UnifiAPI</code>](#UnifiAPI)  
 **Returns**: <code>Promise</code> - Promise  
 
 | Param | Type | Description |
@@ -1567,7 +1587,7 @@ unifi.get_wlanconf()
 ### unifiAPI.list_alarms(site) ⇒ <code>Promise</code>
 List the Alarms
 
-**Kind**: instance method of <code>[UnifiAPI](#UnifiAPI)</code>  
+**Kind**: instance method of [<code>UnifiAPI</code>](#UnifiAPI)  
 **Returns**: <code>Promise</code> - Promise  
 
 | Param | Type | Description |
@@ -1585,7 +1605,7 @@ unifi.list_alarms()
 ### unifiAPI.set_ap_led(ap_id, led_override, site) ⇒ <code>Promise</code>
 Set the access point LED
 
-**Kind**: instance method of <code>[UnifiAPI](#UnifiAPI)</code>  
+**Kind**: instance method of [<code>UnifiAPI</code>](#UnifiAPI)  
 **Returns**: <code>Promise</code> - Promise  
 
 | Param | Type | Description |
@@ -1605,7 +1625,7 @@ unifi.set_ap_led('12312312312','default')
 ### unifiAPI.set_ap_name(ap_id, name, site) ⇒ <code>Promise</code>
 Change the name of an Access Point
 
-**Kind**: instance method of <code>[UnifiAPI](#UnifiAPI)</code>  
+**Kind**: instance method of [<code>UnifiAPI</code>](#UnifiAPI)  
 **Returns**: <code>Promise</code> - Promise  
 
 | Param | Type | Description |
@@ -1625,7 +1645,7 @@ unifi.set_ap_name('12312312312','new ap')
 ### unifiAPI.set_ap_wireless(ap_id, radio, channel, ht, min_rssi, min_rssi_enabled, antenna_gain, tx_power_mode, site) ⇒ <code>Promise</code>
 Set wireless properties per AP
 
-**Kind**: instance method of <code>[UnifiAPI](#UnifiAPI)</code>  
+**Kind**: instance method of [<code>UnifiAPI</code>](#UnifiAPI)  
 **Returns**: <code>Promise</code> - Promise  
 
 | Param | Type | Description |
@@ -1651,7 +1671,7 @@ unifi.set_ap_wireless('12312312312','ng', 3)
 ### unifiAPI.status(site) ⇒ <code>Promise</code>
 Check status
 
-**Kind**: instance method of <code>[UnifiAPI](#UnifiAPI)</code>  
+**Kind**: instance method of [<code>UnifiAPI</code>](#UnifiAPI)  
 **Returns**: <code>Promise</code> - Promise  
 
 | Param | Type | Description |
@@ -1669,7 +1689,7 @@ unifi.status()
 ### unifiAPI.set_ap_network(ap_id, type, ip, netmask, gateway, dns1, dns2, site) ⇒ <code>Promise</code>
 Configure the network settings of AP/device
 
-**Kind**: instance method of <code>[UnifiAPI](#UnifiAPI)</code>  
+**Kind**: instance method of [<code>UnifiAPI</code>](#UnifiAPI)  
 **Returns**: <code>Promise</code> - Promise  
 
 | Param | Type | Description |
@@ -1694,7 +1714,7 @@ unifi.set_ap_network('00:01:02:03:04:05', 'dhcp')
 ### unifiAPI.request_spectrumscan(mac, site) ⇒ <code>Promise</code>
 Request a spectrum scan
 
-**Kind**: instance method of <code>[UnifiAPI](#UnifiAPI)</code>  
+**Kind**: instance method of [<code>UnifiAPI</code>](#UnifiAPI)  
 **Returns**: <code>Promise</code> - Promise  
 
 | Param | Type | Description |
@@ -1713,7 +1733,7 @@ unifi.request_spectrumscan('00:01:02:03:04:05')
 ### unifiAPI.set_site_descr(description, site) ⇒ <code>Promise</code>
 Set description to the site
 
-**Kind**: instance method of <code>[UnifiAPI](#UnifiAPI)</code>  
+**Kind**: instance method of [<code>UnifiAPI</code>](#UnifiAPI)  
 **Returns**: <code>Promise</code> - Promise  
 
 | Param | Type | Description |
@@ -1732,7 +1752,7 @@ unifi.set_site_descr('My site')
 ### unifiAPI.set_site_settings(gen_id, site_id, advanced, alerts, auto_upgrade, key, led_enabled, x_ssh_username, x_ssh_password, site) ⇒ <code>Promise</code>
 Set settings of the site (optional)
 
-**Kind**: instance method of <code>[UnifiAPI](#UnifiAPI)</code>  
+**Kind**: instance method of [<code>UnifiAPI</code>](#UnifiAPI)  
 **Returns**: <code>Promise</code> - Promise  
 **Todo**
 
@@ -1763,7 +1783,7 @@ unifi.set_site_settings('0101923920a3a4fbff', '3333923920a3a4fbff', false)
 ### unifiAPI.add_hotspot2(name, network_access_internet, network_type, venue_group, venue_type, site) ⇒ <code>Promise</code>
 Add HotSpot 2.0 configuration
 
-**Kind**: instance method of <code>[UnifiAPI](#UnifiAPI)</code>  
+**Kind**: instance method of [<code>UnifiAPI</code>](#UnifiAPI)  
 **Returns**: <code>Promise</code> - Promise  
 
 | Param | Type | Description |
@@ -1786,7 +1806,7 @@ unifi.add_hotspot2('hotspot2.0 config')
 ### unifiAPI.list_hotspot2(site) ⇒ <code>Promise</code>
 List hotspot 2.0 configurations
 
-**Kind**: instance method of <code>[UnifiAPI](#UnifiAPI)</code>  
+**Kind**: instance method of [<code>UnifiAPI</code>](#UnifiAPI)  
 **Returns**: <code>Promise</code> - Promise  
 
 | Param | Type | Description |
@@ -1804,7 +1824,7 @@ unifi.list_hotspot2()
 ### unifiAPI.delete_hotspot2(site) ⇒ <code>Promise</code>
 Delete hotspot 2.0 configuration
 
-**Kind**: instance method of <code>[UnifiAPI](#UnifiAPI)</code>  
+**Kind**: instance method of [<code>UnifiAPI</code>](#UnifiAPI)  
 **Returns**: <code>Promise</code> - Promise  
 
 | Param | Type | Description |
@@ -1829,7 +1849,7 @@ unifi.list_hotspot2()
 ### unifiAPI.set_hotspot2(hs_id, name, network_access_internet, network_type, venue_group, venue_type, site) ⇒ <code>Promise</code>
 Modify Hotspot 2.0 configuration
 
-**Kind**: instance method of <code>[UnifiAPI](#UnifiAPI)</code>  
+**Kind**: instance method of [<code>UnifiAPI</code>](#UnifiAPI)  
 **Returns**: <code>Promise</code> - Promise  
 
 | Param | Type | Description |
@@ -1853,7 +1873,7 @@ unifi.set_hotspot2('112323322aaaffa191', 'new name')
 ### unifiAPI.remove_wlanconf(id, site) ⇒ <code>Promise</code>
 Remove WLAN configuration
 
-**Kind**: instance method of <code>[UnifiAPI](#UnifiAPI)</code>  
+**Kind**: instance method of [<code>UnifiAPI</code>](#UnifiAPI)  
 **Returns**: <code>Promise</code> - Promise  
 
 | Param | Type | Description |
@@ -1872,7 +1892,7 @@ unifi.remove_wlanconf('112323322aaaffa191')
 ### unifiAPI.sdn_register(username, password, site) ⇒ <code>Promise</code>
 Register to the SDN (Ubiquiti cloud)
 
-**Kind**: instance method of <code>[UnifiAPI](#UnifiAPI)</code>  
+**Kind**: instance method of [<code>UnifiAPI</code>](#UnifiAPI)  
 **Returns**: <code>Promise</code> - Promise  
 
 | Param | Type | Description |
@@ -1892,7 +1912,7 @@ unifi.sdn_register('unifi_user', 'unifi_pass')
 ### unifiAPI.sdn_unregister(site) ⇒ <code>Promise</code>
 Deregister of the SDN (Ubiquiti cloud)
 
-**Kind**: instance method of <code>[UnifiAPI](#UnifiAPI)</code>  
+**Kind**: instance method of [<code>UnifiAPI</code>](#UnifiAPI)  
 **Returns**: <code>Promise</code> - Promise  
 
 | Param | Type | Description |
@@ -1910,7 +1930,7 @@ unifi.sdn_unregister()
 ### unifiAPI.sdn_stat(site) ⇒ <code>Promise</code>
 Get information about the Ubiquiti cloud registration
 
-**Kind**: instance method of <code>[UnifiAPI](#UnifiAPI)</code>  
+**Kind**: instance method of [<code>UnifiAPI</code>](#UnifiAPI)  
 **Returns**: <code>Promise</code> - Promise  
 
 | Param | Type | Description |
@@ -1928,7 +1948,7 @@ unifi.sdn_stat()
 ### unifiAPI.sdn_onoff(enabled, site_id, site) ⇒ <code>Promise</code>
 SDN on, off, deregistration
 
-**Kind**: instance method of <code>[UnifiAPI](#UnifiAPI)</code>  
+**Kind**: instance method of [<code>UnifiAPI</code>](#UnifiAPI)  
 **Returns**: <code>Promise</code> - Promise  
 
 | Param | Type | Description |
@@ -1948,7 +1968,7 @@ unifi.sdn_onoff(true, '00010102221adffaa03')
 ### unifiAPI.extend_voucher(voucher_id, site) ⇒ <code>Promise</code>
 Extend voucher
 
-**Kind**: instance method of <code>[UnifiAPI](#UnifiAPI)</code>  
+**Kind**: instance method of [<code>UnifiAPI</code>](#UnifiAPI)  
 **Returns**: <code>Promise</code> - Promise  
 **Todo**
 
@@ -2059,7 +2079,7 @@ cloud.self()
 ### cloudAPI.debugging(enabled) ⇒ <code>undefined</code>
 Enable or disable debugging
 
-**Kind**: instance method of <code>[CloudAPI](#CloudAPI)</code>  
+**Kind**: instance method of [<code>CloudAPI</code>](#CloudAPI)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -2070,7 +2090,7 @@ Enable or disable debugging
 ### cloudAPI.login(username, password) ⇒ <code>Promise</code>
 Explicit login. Optional call as implicit login is always in place
 
-**Kind**: instance method of <code>[CloudAPI](#CloudAPI)</code>  
+**Kind**: instance method of [<code>CloudAPI</code>](#CloudAPI)  
 **Returns**: <code>Promise</code> - Promise  
 
 | Param | Type | Description |
@@ -2089,7 +2109,7 @@ cloud.login()
 ### cloudAPI.logout() ⇒ <code>Promise</code>
 Explicit logout
 
-**Kind**: instance method of <code>[CloudAPI](#CloudAPI)</code>  
+**Kind**: instance method of [<code>CloudAPI</code>](#CloudAPI)  
 **Returns**: <code>Promise</code> - Promise  
 **Example**  
 ```js
@@ -2102,7 +2122,7 @@ cloud.logout()
 ### cloudAPI.self() ⇒ <code>Promise</code>
 Check information about self
 
-**Kind**: instance method of <code>[CloudAPI](#CloudAPI)</code>  
+**Kind**: instance method of [<code>CloudAPI</code>](#CloudAPI)  
 **Returns**: <code>Promise</code> - Promise  
 **Example**  
 ```js
@@ -2115,7 +2135,7 @@ cloud.self()
 ### cloudAPI.devices() ⇒ <code>Promise</code>
 List registered devices / controllers
 
-**Kind**: instance method of <code>[CloudAPI](#CloudAPI)</code>  
+**Kind**: instance method of [<code>CloudAPI</code>](#CloudAPI)  
 **Returns**: <code>Promise</code> - Promise  
 **Example**  
 ```js
@@ -2128,7 +2148,7 @@ cloud.devices()
 ### cloudAPI.delete_device(device_id) ⇒ <code>Promise</code>
 Forget device/controller
 
-**Kind**: instance method of <code>[CloudAPI](#CloudAPI)</code>  
+**Kind**: instance method of [<code>CloudAPI</code>](#CloudAPI)  
 **Returns**: <code>Promise</code> - Promise  
 
 | Param | Type | Description |

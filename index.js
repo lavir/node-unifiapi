@@ -509,7 +509,7 @@ UnifiAPI.prototype.list_users = function(site = undefined) {
 };
 
 /**
- * List APs
+ * Legacy List APs (deprecated, use 'List Devices')
  * @param {string} mac AP mac/id, Optional
  * @param {string} site Ubiquiti site, if different from default - optional
  * @return {Promise} Promise
@@ -518,7 +518,22 @@ UnifiAPI.prototype.list_users = function(site = undefined) {
  *     .catch(err => console.log('Error',err))
  */
 UnifiAPI.prototype.list_aps = function(mac = '', site = undefined) { // TODO: not working with mac different than none
+    console.warn("The 'list_aps' endpoint is deprecated and will be removed in the future. Use 'list_devices' instead.")
     return this.netsite('/stat/device/' + mac, undefined, {}, undefined, site)
+};
+
+/**
+ * List Devices
+ * @param {string} macs List of device' macs, Optional
+ * @param {string} site Ubiquiti site, if different from default - optional
+ * @return {Promise} Promise
+ * @example unifi.list_devices()
+ *     .then(done => console.log('Success',done))
+ *     .catch(err => console.log('Error',err))
+ */
+UnifiAPI.prototype.list_devices = function(macs = [], site = undefined) {
+    const payload = macs.length > 0 ? {macs}: {}
+    return this.netsite('/stat/device', payload, {}, undefined, site)
 };
 
 /**
